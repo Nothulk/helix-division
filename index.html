@@ -1,35 +1,77 @@
-
-
 <!DOCTYPE html>
 <html>
 <head>
 <title>Helix Division</title>
+
 <style>
 body {
   background-color: black;
-  color: #00ffcc;
+  color: red;
   font-family: monospace;
   text-align: center;
   padding-top: 20%;
+  overflow: hidden;
 }
+
+h1 {
+  animation: flicker 1.5s infinite;
+}
+
 button {
   background: black;
-  color: #00ffcc;
-  border: 1px solid #00ffcc;
+  color: red;
+  border: 1px solid red;
   padding: 10px 20px;
   cursor: pointer;
+  margin-top: 20px;
+}
+
+button:hover {
+  background: red;
+  color: black;
+}
+
+@keyframes flicker {
+  0% {opacity: 1;}
+  50% {opacity: 0.2;}
+  100% {opacity: 1;}
 }
 </style>
 </head>
+
 <body>
 
-<h1>You weren't supposed to find this.</h1>
+<h1 id="text">You weren't supposed to find this.</h1>
+
 <button onclick="enter()">ENTER</button>
 
 <script>
+
+// 🎵 audio setup
+let audio = new Audio("https://www.soundjay.com/horror/sounds/horror-ambience-01.mp3");
+audio.volume = 0.3; // low creepy volume
+
 function enter() {
-  window.location.href = "dashboard.html";
+  audio.play(); // sound start
+  document.body.innerHTML = "<h1 style='color:red; font-family:monospace;'>ACCESSING...</h1>";
+  
+  setTimeout(() => {
+    window.location.href = "dashboard.html";
+  }, 2000);
 }
+
+// creepy changing text
+setInterval(() => {
+  let t = document.getElementById("text");
+  if (t) {
+    if (t.innerHTML === "You weren't supposed to find this.") {
+      t.innerHTML = "WE SEE YOU.";
+    } else {
+      t.innerHTML = "You weren't supposed to find this.";
+    }
+  }
+}, 3000);
+
 </script>
 
 </body>
