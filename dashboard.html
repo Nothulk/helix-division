@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Helix Division - System</title>
+
+<style>
+body {
+  background: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+  background-color: black;
+  color: lime;
+  font-family: monospace;
+  padding: 30px;
+}
+
+/* glitch text */
+.glitch {
+  color: red;
+  cursor: pointer;
+  display: inline-block;
+}
+
+/* hover glitch */
+.glitch:hover {
+  animation: glitch 0.3s infinite;
+}
+
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(2px, -2px); }
+  60% { transform: translate(-2px, -2px); }
+  80% { transform: translate(2px, 2px); }
+  100% { transform: translate(0); }
+}
+</style>
+</head>
+
+<body>
+
+<h2>HELIX DIVISION INTERNAL SYSTEM</h2>
+
+<p>> Access Level: UNAUTHORIZED</p>
+<p>> Status: MONITORED</p>
+
+<br>
+
+<p>[1] <a href="#">Subject Files</a></p>
+
+<p>[2] <span class="glitch" onclick="access1()" id="g1">████████</span></p>
+<p>[3] <span class="glitch" onclick="access2()" id="g2">████████</span></p>
+
+<br>
+
+<p style="color:red;">WARNING: Activity is being recorded</p>
+
+<script>
+
+// glitch random text generator
+function randomText() {
+  const chars = "█▓▒░#@$%&0123456789";
+  let text = "";
+  for(let i=0;i<8;i++){
+    text += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return text;
+}
+
+// constantly change glitch text
+setInterval(() => {
+  document.getElementById("g1").innerText = randomText();
+  document.getElementById("g2").innerText = randomText();
+}, 500);
+
+// password for section 2
+function access1() {
+  let pass = prompt("ENTER ACCESS CODE");
+  if(pass === "alpha7") {
+    alert("ACCESS GRANTED");
+  } else {
+    alert("ACCESS DENIED");
+  }
+}
+
+// password for section 3
+function access2() {
+  let pass = prompt("ENTER ACCESS CODE");
+  if(pass === "omega9") {
+    alert("ACCESS GRANTED");
+  } else {
+    alert("ACCESS DENIED");
+  }
+}
+
+</script>
+
+</body>
+</html>
