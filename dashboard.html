@@ -5,32 +5,49 @@
 
 <style>
 body {
-  background: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
-  background-color: black;
+  background: black;
   color: lime;
   font-family: monospace;
   padding: 30px;
+  overflow: hidden;
+  transition: 0.1s;
 }
 
-/* glitch text */
-.glitch {
+/* flicker */
+@keyframes flicker {
+  0% {opacity: 1;}
+  50% {opacity: 0.85;}
+  100% {opacity: 1;}
+}
+body {
+  animation: flicker 2s infinite;
+}
+
+/* glitch hover */
+.glitch:hover {
+  color: white;
+  letter-spacing: 3px;
+}
+
+/* warning */
+.red {
   color: red;
   cursor: pointer;
-  display: inline-block;
 }
 
-/* hover glitch */
-.glitch:hover {
-  animation: glitch 0.3s infinite;
+/* flash */
+.flash {
+  background: white !important;
+  color: black !important;
 }
 
-@keyframes glitch {
-  0% { transform: translate(0); }
-  20% { transform: translate(-2px, 2px); }
-  40% { transform: translate(2px, -2px); }
-  60% { transform: translate(-2px, -2px); }
-  80% { transform: translate(2px, 2px); }
-  100% { transform: translate(0); }
+/* shake */
+@keyframes shake {
+  0% { transform: translate(0,0); }
+  25% { transform: translate(5px,-5px); }
+  50% { transform: translate(-5px,5px); }
+  75% { transform: translate(5px,5px); }
+  100% { transform: translate(0,0); }
 }
 </style>
 </head>
@@ -39,39 +56,65 @@ body {
 
 <h2>HELIX DIVISION INTERNAL SYSTEM</h2>
 
-<p>> Access Level: UNAUTHORIZED</p>
-<p>> Status: MONITORED</p>
+<p id="access">> Access Level: UNAUTHORIZED</p>
+<p id="status">> Status: MONITORED</p>
 
 <br>
 
-<p>[1] <a href="#">Subject Files</a></p>
+<p>[1] <a href="#" style="color:lime;">Subject Files</a></p>
 
-<p>[2] <span class="glitch" onclick="access1()" id="g1">████████</span></p>
-<p>[3] <span class="glitch" onclick="access2()" id="g2">████████</span></p>
+<p>[2] <span class="red glitch" onclick="access1()">████████</span></p>
+<p>[3] <span class="red glitch" onclick="access2()">████████</span></p>
 
 <br>
 
-<p style="color:red;">WARNING: Activity is being recorded</p>
+<p id="warning" class="red">WARNING: Activity is being recorded</p>
 
 <script>
 
-// glitch random text generator
-function randomText() {
-  const chars = "█▓▒░#@$%&0123456789";
-  let text = "";
-  for(let i=0;i<8;i++){
-    text += chars[Math.floor(Math.random() * chars.length)];
-  }
-  return text;
-}
-
-// constantly change glitch text
+// 🔴 status escalation
+let states = ["MONITORED", "TRACKING", "IDENTIFIED", "FOUND YOU"];
 setInterval(() => {
-  document.getElementById("g1").innerText = randomText();
-  document.getElementById("g2").innerText = randomText();
-}, 500);
+  let s = states[Math.floor(Math.random()*states.length)];
+  document.getElementById("status").innerText = "> Status: " + s;
+}, 2500);
 
-// password for section 2
+// ⚡ random flash
+setInterval(() => {
+  if(Math.random() > 0.8){
+    document.body.classList.add("flash");
+    setTimeout(()=> document.body.classList.remove("flash"), 100);
+  }
+}, 2000);
+
+// 👁️ disturbing popup
+setInterval(() => {
+  if(Math.random() > 0.7){
+    let msg = document.createElement("div");
+    msg.innerText = "YOU ARE NOT SUPPOSED TO BE HERE";
+    msg.style.position = "fixed";
+    msg.style.top = "50%";
+    msg.style.left = "50%";
+    msg.style.transform = "translate(-50%, -50%)";
+    msg.style.color = "red";
+    msg.style.fontSize = "20px";
+    document.body.appendChild(msg);
+
+    setTimeout(() => msg.remove(), 800);
+  }
+}, 4000);
+
+// 🌑 blackout
+setInterval(() => {
+  if(Math.random() > 0.85){
+    document.body.style.background = "black";
+    document.body.innerHTML = "<h1 style='color:red;'>CONNECTION LOST</h1>";
+
+    setTimeout(() => location.reload(), 800);
+  }
+}, 6000);
+
+// 🔐 passwords
 function access1() {
   let pass = prompt("ENTER ACCESS CODE");
   if(pass === "alpha7") {
@@ -81,7 +124,6 @@ function access1() {
   }
 }
 
-// password for section 3
 function access2() {
   let pass = prompt("ENTER ACCESS CODE");
   if(pass === "omega9") {
