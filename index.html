@@ -89,29 +89,20 @@ c3ViamVjdDEw
 </p>
 
 <script>
-
 function enter() {
   let password = document.getElementById("pass").value;
 
   if(password === "subject10") {
     document.body.innerHTML = "<h1 style='color:red;'>ACCESS GRANTED</h1>";
+
+    setTimeout(() => {
+      window.location.href = "dashboard.html";
+    }, 2000); // 2 sec baad redirect
+
   } else {
     document.body.innerHTML = "<h1 style='color:red;'>ACCESS DENIED</h1>";
   }
 }
-
-// creepy text
-setInterval(() => {
-  let t = document.getElementById("text");
-  if (t) {
-    if (t.innerHTML === "You weren't supposed to find this.") {
-      t.innerHTML = "WE SEE YOU.";
-    } else {
-      t.innerHTML = "You weren't supposed to find this.";
-    }
-  }
-}, 3000);
-
 </script>
 
 </body>
